@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ExtensionProvider } from '@elrondnetwork/erdjs-extension-provider/out';
 import {
   Account,
@@ -6,60 +6,92 @@ import {
   TokenPayment,
   Transaction,
   TransactionPayload,
+  SignableMessage,
+  TransactionWatcher,
 } from '@elrondnetwork/erdjs/out';
 import { ProxyNetworkProvider } from '@elrondnetwork/erdjs-network-providers';
 import { ApiNetworkProvider } from '@elrondnetwork/erdjs-network-providers';
+import { create } from 'ipfs-http-client';
+import { Signature } from '@elrondnetwork/erdjs/out/signature';
+import { HttpClient } from '@angular/common/http';
+import { LoadingService } from './services/loading.service';
+import { WalletService } from './services/wallet/wallet.service';
+import { Router } from '@angular/router';
+import { WalletQuery } from './services/wallet/wallet.query';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'etravel';
-
+  displayLoading = false;
   provider;
-  // networkProvider = new ApiNetworkProvider('https://devnet-api.elrond.com');
   networkProvider = new ProxyNetworkProvider(
     'https://devnet-gateway.elrond.com'
   );
 
-  constructor() {
+  account: Account | null = null;
+  bech32?: string = '';
+
+  constructor(
+    private walletQuery: WalletQuery,
+    public router: Router, private http: HttpClient, private loadingService: LoadingService, public walletService: WalletService) {
+    this.loadingService.displayLoanding$.subscribe(resp => {
+      this.displayLoading = resp;
+    })
     this.provider = ExtensionProvider.getInstance();
   }
-  async init() {
-    await this.provider.init();
-    let walletAddress = await this.provider.login();
-    let addressOfWallet = new Address(walletAddress);
-    let account = new Account(addressOfWallet);
-    let accountOnNetwork = await this.networkProvider.getAccount(
-      addressOfWallet
-    );
-    account.update(accountOnNetwork);
-    console.log(account.nonce);
-    console.log((account.balance as any).c[0] / 10000);
-    let xegld = (account.balance as any).c[0] / 10000;
+  async ngOnInit() {
+
+
+
+    this.walletQuery.select().subscribe(wallet => {
+      if (wallet.bech32 != null && wallet.account == null) {
+        this.walletService.setAccount(wallet.bech32);
+      }
+    })
+
+    this.walletQuery.account$.subscribe(account => {
+      if (account) {
+        this.account = account;
+        this.bech32 = account?.address.bech32();
+      } else {
+        this.account = null;
+        this.bech32 = '';
+      }
+    })
+
+    // if( navigator.geolocation )
+    //     {
+    //        // Call getCurrentPosition with success and failure callbacks
+    //        navigator.geolocation.getCurrentPosition( (position) => {
+    //         console.log(position);
+    //        }, fail => {
+    //         console.log(fail);
+    //        } );
+    //     }
+
+
   }
 
-  connect() {
-    this.init();
+  async init() {
+    await this.walletService.connect();
   }
-  async sendTransaction() {
-    let tx = new Transaction({
-      data: new TransactionPayload('test Alina'),
-      gasLimit: 70000,
-      receiver: new Address(
-        'erd1uv40ahysflse896x4ktnh6ecx43u7cmy9wnxnvcyp7deg299a4sq6vaywa'
-      ),
-      value: TokenPayment.egldFromAmount(1),
-      chainID: 'D',
-    });
-    this.provider
-      .signTransaction(tx)
-      .finally(() => {})
-      .then((signedTx) => {
-        let txHash = this.networkProvider.sendTransaction(tx);
-        console.log(txHash);
-      });
+
+  toMap() {
+    this.router.navigateByUrl("/map");
   }
+
+  start() {
+    this.router.navigateByUrl("/create-nft");
+  }
+
+  async logout() {
+    await this.walletService.logOutAccount();
+    this.router.navigateByUrl("/");
+  }
+
 }

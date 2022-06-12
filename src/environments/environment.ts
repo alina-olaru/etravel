@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'https://localhost:7025/api/',
+  blockhainNetworkProvider: 'https://devnet-gateway.elrond.com',
+  eTravelWallet: 'erd15y4qjtk7algu65zfp430eqdve9wk08uxxe5r97drsu5qna29vn0q89rsyg',
+  tokenIdentifier: "ETVL-3cb6df"
 };
 
 /*

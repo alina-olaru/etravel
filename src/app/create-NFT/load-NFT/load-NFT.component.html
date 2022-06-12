@@ -1,0 +1,133 @@
+<div class="mt-10 w-full flex-col h-full flex align-middle items-center justify-center content-center">
+  <div class="flex flex-row gap-20">
+    <div class="flex">
+      <div class="hidden">
+        <input #fileInput type="file" placeholder="upload your file" (change)="selectFile($event)">
+      </div>
+      <div class="flex flex-col gap-6">
+        <img class="w-96 h-96 object-cover" *ngIf="url" [src]="url">
+        <img class="w-96 h-96 object-cover" *ngIf="!url"
+          src="https://getstamped.co.uk/wp-content/uploads/WebsiteAssets/Placeholder.jpg">
+        <button mat-button (click)="fileInput.click()" *ngIf="!url">
+          <mat-icon>upload</mat-icon>
+          <span>Upload</span>
+        </button>
+        <button mat-button (click)="fileInput.click()" *ngIf="url">
+          <mat-icon>sync</mat-icon>
+          <span>Change</span>
+        </button>
+      </div>
+    </div>
+    <div class="flex flex-col">
+      <div class="mt-5 flex flex-col nft-attributes">
+        <span> NFT Attributes</span>
+        <div class="flex flex-col md:flex-row gap-5">
+          <div class="flex flex-1">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>NFT name</mat-label>
+              <input matInput [formControl]="nftNameFC" placeholder="NFT name">
+
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="flex">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>NFT description</mat-label>
+            <textarea matInput [formControl]="nftDescFC" placeholder="NFT description"></textarea>
+
+          </mat-form-field>
+        </div>
+        <div class="flex">
+          <mat-form-field appearance="outline" class="w-full h-full">
+            <mat-label>Tags</mat-label>
+            <mat-chip-list #chipList aria-label="Tags selection">
+              <mat-chip *ngFor="let tag of tags" (removed)="remove(tag)">
+                {{tag}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input placeholder="New tag..." #tagInput [formControl]="tagCtrl" [matAutocomplete]="auto"
+                [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                {{tag}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+        </div>
+
+
+      </div>
+
+      <div class="mt-5 flex flex-col nft-attributes">
+        <span>Location </span>
+        <div class="flex flex-col md:flex-row gap-5">
+          <div class="flex flex-1">
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Location name</mat-label>
+              <input matInput [formControl]="locationNameFC" placeholder="Location name">
+
+            </mat-form-field>
+          </div>
+
+          <div class="flex">
+
+          </div>
+
+        </div>
+        <div class="flex flex-col md:flex-row gap-5">
+          <div class="flex">
+            <mat-form-field appearance="outline">
+              <mat-label>Latitude</mat-label>
+              <input matInput [formControl]="latitudefc" placeholder="latitude" readonly>
+
+            </mat-form-field>
+          </div>
+
+          <div class="flex">
+            <mat-form-field appearance="outline">
+              <mat-label>Longitude</mat-label>
+              <input matInput [formControl]="longitudefc" placeholder="longitude" readonly>
+
+            </mat-form-field>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- todo afisat doar dupa ce primesc raspunsul de la google api? -->
+  <div class="w-full flex pt-5">
+    <div class="w-full" *ngFor="let response of cloudVisionApiResponse?.responses">
+      <google-map class=" w-full h-full" height="500px" width="100%" [zoom]="zoom" [center]="center"
+        [options]="options">
+        <map-marker #markerElem #somemarker="mapMarker" *ngFor="let landmark of locations"
+          [position]="landmark.latLongMap" [label]="landmark.description" [title]="landmark.description"
+          (mapClick)="selectMarker(landmark)">
+        </map-marker>
+
+      </google-map>
+
+    </div>
+  </div>
+
+
+  <div class="flex mt-5 ">
+    <!-- [disabled]="!areConditionSatisfied()" -->
+    <button [disabled]="!areConditionSatisfied()" mat-raised-button color="primary" class="btn btn-primary"
+      (click)="createNft()" [disabled]="">Create NFT</button>
+  </div>
+</div>
+<!-- <div *ngFor="let response of cloudVisionApiResponse?.responses">
+<div *ngFor="let landmark of response.landmarkAnnotations">
+  {{landmark.locations[0].latLng | json}}
+</div>
+</div> -->

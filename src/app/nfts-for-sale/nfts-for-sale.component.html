@@ -1,0 +1,51 @@
+<div class="mat-typography h-full w-full flex flex-col">
+  <div class="flex h-24	justify-center align-middle items-center pt-5">
+    <app-search-nfts class="w-2/4" (searchTextChanged)="filterNFTsBasedOnText($event)"></app-search-nfts>
+  </div>
+  <div class=" h-full w-full flex flex-col md:flex-row">
+
+    <div class="flex flex-col w-1/3 overflow-y-scroll overflow-x-hidden">
+      <div class="flex justify-center" *ngIf="nftSales.length == 0">
+        There are no NFTs for sale<div class="inline ml-1" *ngIf="searchText"> based on your search </div>.
+      </div>
+      <cdk-virtual-scroll-viewport itemSize="500">
+        <li (click)="scrollMapTo(nftS)" class="cursor-pointer flex flex-col p-8 shadow-lg rounded-lg"
+          *cdkVirtualFor="let nftS of nftSales">
+          <div class="text-2xl"> {{nftS.nft.nftName}}</div>
+          <div class="text-sm text-gray-400 italic mb-4">
+            {{nftS.nft.locationName}}
+          </div>
+          <!-- todo FIX img src for nft -->
+          <img *ngIf="nftS.nft.imgUrl" class="object-cover w-full h-96" [src]="nftS.nft.imgUrl">
+          <img *ngIf="!nftS.nft.imgUrl" class="object-cover w-full h-96"
+            src="https://cdn-icons-png.flaticon.com/512/5264/5264949.png">
+          <h3 class="pt-8">{{nftS.nft.description}}</h3>
+          <div>
+            <label>
+              Price:
+            </label>
+            <span>
+              {{nftS.price}} EGLD
+            </span>
+          </div>
+          <button class="sell-btn" (click)="buy(nftS)" *ngIf="nftS.nft.owner != bech32" mat-raised-button
+            color="primary">Buy
+          </button>
+          <button class="buy-btn" [disabled] *ngIf="nftS.nft.owner == bech32"
+            mat-raised-button color="primary">Owned
+          </button>
+        </li>
+      </cdk-virtual-scroll-viewport>
+    </div>
+    <div class="flex w-full h-full">
+      <google-map class=" w-full h-full" height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
+        [zoom]="zoom">
+        <map-marker #markerElem #somemarker="mapMarker" *ngFor="let marker of nftSales" [position]="marker.nft.position"
+          [label]="marker.nft.locationName" [title]="marker.nft.locationName" [options]="marker.nft.options"
+          (mapClick)="openmarker(marker)" (mapDblclick)="mapDblclick($event)" (mapMouseout)="mapMouseout(marker)"
+          (mapMouseover)="mapMouseover(markerElem)">
+        </map-marker>
+      </google-map>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+:host{
+  @apply flex;
+  @apply h-full;
+  @apply w-full;
+}
+.virtual-scroll-wrap {
+  width: 50%;
+  margin: auto;
+  min-width: 380px
+}
+
+cdk-virtual-scroll-viewport {
+  height: 100vh;
+  li {
+      height: 600px;
+      list-style: none;
+      border: 1px solid #ccc;
+      margin: 10px 30px
+  }
+  .thumbnail-wrap {
+      width: 100px;
+      display: inline-block;
+      img {
+          height: 65px;
+          margin: 18px 14px;
+      }
+  }
+  .info-wrap
+  {
+      vertical-align: top;
+      display: inline-block
+  }
+}
+
+
+@-webkit-keyframes lightSpeedIn {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
+    opacity: 0
+  }
+
+  60% {
+    -webkit-transform: skewX(20deg);
+    transform: skewX(20deg);
+    opacity: 1
+  }
+
+  80% {
+    -webkit-transform: skewX(-5deg);
+    transform: skewX(-5deg)
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes lightSpeedIn {
+  from {
+    -webkit-transform: translate3d(100%, 0, 0) skewX(-30deg);
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
+    opacity: 0
+  }
+
+  60% {
+    -webkit-transform: skewX(20deg);
+    transform: skewX(20deg);
+    opacity: 1
+  }
+
+  80% {
+    -webkit-transform: skewX(-5deg);
+    transform: skewX(-5deg)
+  }
+
+  to {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+.lightSpeedIn {
+  -webkit-animation-name: lightSpeedIn;
+  animation-name: lightSpeedIn;
+  -webkit-animation-timing-function: ease-out;
+  animation-timing-function: ease-out
+}
+
+.animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both
+}
+
+// todo remove dupa ce termini documentatia sa ai ss
+:host{
+  @apply flex;
+  @apply h-full;
+  @apply w-full;
+}
+// .virtual-scroll-wrap {
+//   @apply h-50;
+//   @apply mt-10;
+//   @apply bg-white;
+//   @apply shadow-md;
+//   @apply opacity-5;
+//   @apply rounded-lg;
+//   @apply flex;
+//   @apply justify-center;
+//   @apply items-center;
+// }
+
+.buy-btn{
+  background: #ebc634;
+  MARGIN-TOP: 10PX;
+  padding: 6px;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}
+
+.sell-btn{
+  background: rgb(87, 187, 87);
+  MARGIN-TOP: 10PX;
+
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+}

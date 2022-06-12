@@ -1,4 +1,53 @@
+<div class="etravel flex flex-col h-screen w-screen">
+  <mat-toolbar class="menu">
+    <div>
+      <img class="h-14" src="../assets/images/logo.png">
+    </div>
+    <span class="example-spacer flex flex-auto"></span>
+    <button mat-button (click)="toMap()">
+      Map
+    </button>
+    <button mat-button *ngIf="account" (click)="start()">
+      Create NFT
+    </button>
+    <button mat-button *ngIf="!account" (click)="init()">
+      Login
+    </button>
+    <button mat-button *ngIf="account" [matMenuTriggerFor]="menu">
+      ...{{ bech32 | slice:-10 }}
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/my-nfts']" routerLinkActive="router-link-active">
+        <mat-icon>image</mat-icon>
+        <span>My NFTs</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </mat-toolbar>
 
-<router-outlet></router-outlet>
-<button (click)="connect()">Connect</button>
+
+  <!-- <div class="menu flex">
+    <div class="cursor-pointer" >map</div>
+    <div class="cursor-pointer" >start</div>
+    <div  class="cursor-pointer" >login</div>
+    <div class="cursoir-pointer" >
+      ...{{ bech32 | slice:-10 }}
+    </div>
+
+    <!-- <div class="cursor-pointer" (click)="createNftToken()">create</div>
+
+  </div> -->
+  <div class="etravel-content flex">
+
+    <router-outlet></router-outlet>
+  </div>
+</div>
+<app-loading-screen *ngIf="displayLoading" class="loading-screen"></app-loading-screen>
+<!-- <button (click)="connect()">Connect</button>
 <button (click)="sendTransaction()">send transaction</button>
+
+
+<input #fileInput type="file" placeholder="upload your file" (change)="uploadFile(fileInput.files)"> -->

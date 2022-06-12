@@ -1,0 +1,186 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  margin: 0!important;
+}
+
+body {
+  margin: 0!important;
+}
+
+
+
+.parallax {
+  perspective: 100px;
+   height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  // top: 10vh;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-left: -1500px;
+}
+
+.parallax__layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.parallax__layer img {
+  display: block;
+  position: absolute;
+  bottom: 0;
+}
+
+.parallax__cover {
+  background: #000;
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 2000px;
+  z-index: 2;
+}
+
+.parallax__layer__0 {
+  transform: translateZ(-300px) scale(4);
+  background: radial-gradient(#ff5722 7%, #2196f3 50%, #000 70%);
+}
+
+.parallax__layer__1 {
+  transform: translateZ(-250px) scale(3.5);
+}
+
+.parallax__layer__2 {
+  transform: translateZ(-200px) scale(3);
+}
+
+.parallax__layer__3 {
+  transform: translateZ(-150px) scale(2.5);
+}
+
+.parallax__layer__4 {
+  transform: translateZ(-100px) scale(2);
+}
+
+.parallax__layer__5 {
+  transform: translateZ(-50px) scale(1.5);
+  filter: drop-shadow(0px -1px 0.1px rgb(0 0 0 / 60%));
+}
+
+.parallax__layer__6 {
+  transform: translateZ(0px) scale(1);
+  filter: grayscale(1) brightness(0) drop-shadow(0px -0.1em 2px forestgreen);
+}
+/*extra-stuff*/
+.prima-sezione {
+  // margin-bottom:-10vh;
+
+}
+:is(.prima-sezione,.sezione-parallax,.terza-sezione) {
+  width:100%;
+    color: #fff;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.sezione-parallax{height:100%;
+  width:100%;
+//  margin-top:10vh;margin-bottom:10vh
+}
+
+// .terza-sezione{margin-top:-10vh}
+.menu{
+  position: fixed;
+  top: 0;
+  background: black;
+  width: 100%;
+  z-index: 999;
+  height: 38px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 29px;
+  color:white;
+  gap:30px;
+}
+
+
+
+//else
+.bgimg-1,
+.bgimg-2,
+.bgimg-3 ,
+.bgimg-4{
+  position: relative;
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bgimg-1 {
+  margin-top: 100px;
+  background-image: url("https://media.cntraveler.com/photos/5eb1ce0c79397e1bac70bdf5/1:1/w_3769,h_3769,c_limit/Lake-Pahoe-GettyImages-559514223.jpg");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("https://www.usnews.com/dims4/USNEWS/0f3589a/2147483647/thumbnail/970x647/quality/85/?url=http%3A%2F%2Fmedia.beam.usnews.com%2Fff%2F6d%2Fabb5206e42b4932cf58355abad4b%2F1-intro-iguazu-falls.jpg");
+  min-height: 400px;
+}
+
+.bgimg-3 {
+  background:url("https://www.ana.co.jp/japan-travel-planner/food-diversity/images/halal/img_main-visual_02.jpg");
+  min-height: 800px;
+  background-size: cover!important;
+  /* background-position: unset; */
+  background-repeat: no-repeat!important;
+}
+.bgimg-4 {
+  min-height: 1100px;
+  background-image: url("https://images.travelandleisureindia.in/wp-content/uploads/2019/12/Northern-Lights-feature.jpg");
+}
+
+.caption {
+//   position: absolute;
+//   left: 0;
+//   top: 50%;
+//   width: 100%;
+   text-align: center;
+   color: #000;
+ }
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+:host{
+  @apply flex;
+  @apply h-full;
+  @apply w-full;
+}
+

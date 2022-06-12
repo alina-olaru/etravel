@@ -1,0 +1,23 @@
+.loading-screen{
+  height: 100%;
+    width: 100%;
+    /* z-index: 999; */
+    position: absolute;
+}
+
+.menu {
+  height: 60px;
+  min-height: 60px;
+}
+
+.etravel-content {
+  height: calc(100vh - 60px);
+  overflow: auto;
+}
+.menu{
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  padding: 18px 20px;
+  font-size: 17px;
+}

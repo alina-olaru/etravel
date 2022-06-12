@@ -1,0 +1,100 @@
+<div class="flex flex-col">
+
+  <div class="flex flex-col">
+    <div class="flex">
+      <img class="object-cover w-full h-80" [src]="data.nft.imgUrl">
+    </div>
+    <div class="mt-5 flex flex-col nft-attributes">
+
+      <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>NFT name</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.nftName">
+          </mat-form-field>
+        </div>
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Location name</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.locationName">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-5">
+        <mat-form-field appearance="outline" class="flex w-full">
+          <mat-label>NFT description</mat-label>
+          <textarea [readonly]="true" matInput [(ngModel)]="data.nft.description"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Latitude</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.locationLatitude">
+          </mat-form-field>
+        </div>
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Longitude</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.locationLongitude">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex flex-col md:flex-row gap-5">
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Nonce</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.nonce">
+          </mat-form-field>
+        </div>
+        <div class="flex flex-1">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Owner</mat-label>
+            <input [readonly]="true" matInput [(ngModel)]="data.nft.owner">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex">
+        <mat-form-field appearance="outline" class="w-full h-full">
+          <mat-label>Tags</mat-label>
+          <mat-chip-list [disabled]="true" #chipList aria-label="Tags selection">
+            <mat-chip
+              *ngFor="let tag of data.nft.tags">
+              {{tag.name}}
+
+            </mat-chip>
+
+          </mat-chip-list>
+
+        </mat-form-field>
+
+       </div>
+       <span class="mb-5" *ngIf="data.displayPrice == true">Set the price (EGLD)</span>
+       <div *ngIf="data.displayPrice == true" class="w-full flex flex-col md:flex-row gap-5">
+
+        <div class="flex w-full">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>PRICE</mat-label>
+            <input  min="0.1" type="number" matInput [(ngModel)]="price">
+          </mat-form-field>
+        </div>
+        <!-- <div class="flex">
+
+      </div> -->
+
+    </div>
+
+
+  </div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button *ngIf="data.displayPrice == true" (click)="sell()" cdkFocusInitial [disabled]="!price || price <= 0">
+    Sell
+  </button>
+</div>

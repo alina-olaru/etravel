@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=The+Girl+Next+Door);
+@import url("https://fonts.googleapis.com/css?family=The+Girl+Next+Door");
 
 
 .wrapper {
@@ -110,7 +110,7 @@ aside {
 
 body {
   background: #bbddee;
-  background: radial-gradient(ellipse cover, #fff 0%, #bbddee 100%);
+  background: radial-gradient(ellipse farthest-corner, #fff 0%, #bbddee 100%);
   padding: 50px 100px;
   height: 500px;
 }

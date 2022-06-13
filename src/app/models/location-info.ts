@@ -6,7 +6,7 @@ export class LocationInfo {
   coordinates: LocationCoordinates = { latitude: 0, longitude: 0 };
   public  areConditionSatisfied(): boolean {
     // TODO POATE FACEM VALIDARI
-    if (this.locationName && this.locationName?.length >=1 && this.coordinates &&  this.coordinates?.latitude >=1 && this.coordinates && this.coordinates?.longitude >=1) {
+    if (this.locationName && this.locationName?.length >=1 && this.coordinates &&  this.coordinates?.latitude  && this.coordinates && this.coordinates?.longitude) {
       return true;
     }
     return false;
